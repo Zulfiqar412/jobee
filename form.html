@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Reset password</h3>
+    <form id="reset-password" action="/reset-password">
+     <input type="password" required name="password" id="password">
+     <input type="submit" name="reset" id="Reset" placeholder="Reser">
+    </form>
+    <script>
+     document.getElementById("reset-password").addEventListener('submit',function(event){
+         event.preventDefault();
+ 
+         const password = document. getElementById('password').value;
+         
+          console.log(password);
+         let value = new URLSearchParams(window.location.search).get("token");
+          fetch(this.action,{
+             method:"Post",headers:{
+                 "Content-Type":"application/json",
+             },
+             body:JSON.stringify({password,token})
+          }).then((response)=>response.json()).then(data=>{
+             if(data.success){
+                 alert('Password reset successfully!');
+             }else {
+                     alert('Error resetting password: ' + data.message);
+                 }
+          }).catch(e=>{
+ 
+          }
+     )
+ })
+    </script>
+</body>
+</html>
